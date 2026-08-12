@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIZMARC - Refrigeraciones y Servicios Eléctricos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f9f9f9; color: #333; scroll-behavior: smooth; }
+
+        header { background-color: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: fixed; top: 0; width: 100%; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 10px 50px; height: 70px; }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 45px; width: auto; object-fit: contain; }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav ul li a { text-decoration: none; color: #555; font-size: 14px; font-weight: 600; transition: color 0.3s; }
+        nav ul li a:hover { color: #0066cc; }
+        .btn-contacto-nav { background-color: #ff7700; color: white !important; padding: 8px 18px; border-radius: 20px; }
+
+        .hero { background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('portada.jpg'); background-color: #0066cc; background-size: cover; background-position: center; color: white; height: 75vh; margin-top: 70px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; gap: 25px; }
+        .hero h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.3rem; max-width: 700px; font-weight: 300; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .ubicacion { font-size: 16px; color: #e0f0ff; display: flex; align-items: center; gap: 8px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        .btn-whatsapp { background-color: #25d366; color: white; padding: 15px 32px; border-radius: 35px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 12px; font-size: 17px; box-shadow: 0 6px 15px rgba(0,0,0,0.25); transition: all 0.3s ease; }
+        .btn-whatsapp:hover { transform: translateY(-3px); background-color: #20ba5a; }
+
+        .servicios-section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
+        .servicios-section h2 { color: #0044cc; font-size: 30px; margin-bottom: 30px; text-align: center; }
+        .tabs-header { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn { background-color: #eef2f5; border: none; padding: 12px 24px; border-radius: 30px; font-size: 15px; font-weight: 600; color: #555; cursor: pointer; transition: all 0.3s ease; }
+        .tab-btn.active, .tab-btn:hover { background-color: #0066cc; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        
+        .servicio-card { background: #ffffff; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; text-decoration: none; display: block; transition: all 0.2s; cursor: pointer; }
+        .servicio-card:hover { transform: scale(1.03); border-color: #0066cc; }
+        .servicio-card i { font-size: 30px; color: #ff7700; margin-bottom: 10px; display: block; }
+        .servicio-card h3 { font-size: 14px; color: #333; font-weight: 600; }
+
+        .construccion-intro { background: #ffffff; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; text-align: center; grid-column: 1 / -1; }
+        .construccion-intro p { font-size: 15px; color: #555; line-height: 1.6; max-width: 900px; margin: 0 auto; }
+
+        .testimonios-section { padding: 60px 20px; background-color: #f0f4f8; margin-top: 40px; }
+        .testimonios-section h2 { color: #0044cc; font-size: 30px; margin-bottom: 30px; text-align: center; }
+        .testimonios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .testimonio-card { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; align-items: flex-start; gap: 15px; border: 1px solid #eee; }
+        .avatar { width: 50px; height: 50px; background-color: #0066cc; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+        .testimonio-content { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+        .testimonio-card p { font-size: 14px; color: #555; line-height: 1.5; }
+        .estrellas-card { color: #ffc107; font-size: 13px; }
+        .header-card-comentario { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 4px; }
+        .nombre-cliente { font-weight: 600; font-size: 13px; color: #333; }
+        .fecha-comentario { font-size: 11px; color: #888; }
+
+        /* Estilos para el formulario */
+        .califica-section { padding: 60px 20px; max-width: 700px; margin: 40px auto; background: #ffffff; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .califica-section h2 { color: #0044cc; font-size: 26px; margin-bottom: 10px; text-align: center; }
+        .califica-section p { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
+        
+        .form-califica { display: flex; flex-direction: column; gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .input-group label { font-size: 14px; font-weight: 600; color: #444; }
+        .input-group input, .input-group textarea { padding: 12px 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; font-family: 'Poppins', sans-serif; outline: none; transition: border-color 0.3s; }
+        .input-group input:focus, .input-group textarea:focus { border-color: #0066cc; }
+        
+        /* Sistema de Estrellas Interactivas */
+        .estrellas-input { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 5px; }
+        .estrellas-input input { display: none; }
+        .estrellas-input label { font-size: 28px; color: #ddd; cursor: pointer; transition: color 0.2s; }
+        .estrellas-input input:checked ~ label,
+        .estrellas-input label:hover,
+        .estrellas-input label:hover ~ label { color: #ffc107; }
+
+        .btn-enviar-resena { background-color: #0066cc; color: white; border: none; padding: 14px; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 10px rgba(0,102,204,0.2); }
+        .btn-enviar-resena:hover { background-color: #0052a3; transform: translateY(-2px); }
+
+        footer { background-color: #1a1a1a; color: #aaa; text-align: center; padding: 30px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="LIZMARC Logo" class="logo-img">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#califica">Califícanos</a></li>
+                <li><a href="https://wa.me/526622724128" target="_blank" class="btn-contacto-nav">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>LIZMARC</h1>
+        <p>Refrigeraciones y servicios eléctricos profesionales en Hermosillo y alrededores.</p>
+        <div class="ubicacion"><i class="fa-solid fa-location-dot"></i> Hermosillo, Sonora.</div>
+        <a href="https://wa.me/526622724128" target="_blank" class="btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp: +52 (662) 272 4128
+        </a>
+    </section>
+
+    <section class="servicios-section" id="servicios">
+        <h2>Nuestros Servicios</h2>
+        
+        <div class="tabs-header">
+            <button class="tab-btn active" onclick="openTab(event, 'tab-electrica')">Área Eléctrica</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-construccion')">Construcción</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-aires')">Aires Acondicionados</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-paneles')">Paneles Solares</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-plomeria')">Plomería</button>
+        </div>
+
+        <!-- Área Eléctrica -->
+        <div id="tab-electrica" class="tab-content active">
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Electricidad%20residencial" class="servicio-card"><i class="fa-solid fa-house-user"></i><h3>Electricidad residencial</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Electricidad%20comercial" class="servicio-card"><i class="fa-solid fa-shop"></i><h3>Electricidad comercial</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Electricidad%20industrial" class="servicio-card"><i class="fa-solid fa-industry"></i><h3>Electricidad industrial</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Instalación%20y%20reparación%20de%20mufas" class="servicio-card"><i class="fa-solid fa-tools"></i><h3>Instalación y reparación de mufas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Centros%20de%20cargas" class="servicio-card"><i class="fa-solid fa-server"></i><h3>Centros de cargas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Reparación%20de%20cortos%20circuitos" class="servicio-card"><i class="fa-solid fa-bolt-lightning"></i><h3>Reparación de cortos circuitos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Ampliaciones%20eléctricas" class="servicio-card"><i class="fa-solid fa-plus-circle"></i><h3>Ampliaciones eléctricas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Cambios%20de%20acometidas" class="servicio-card"><i class="fa-solid fa-arrows-left-right"></i><h3>Cambios de acometidas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20Cambios%20de%20accesorios,%20apagadores%20y%20contactos" class="servicio-card"><i class="fa-solid fa-plug"></i><h3>Cambios de accesorios, apagadores y contactos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20de%20lámparas" class="servicio-card"><i class="fa-solid fa-lightbulb"></i><h3>Instalación de lámparas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20de%20abanicos%20de%20techo" class="servicio-card"><i class="fa-solid fa-fan"></i><h3>Instalación de abanicos de techo</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20de%20calentones%20eléctricos" class="servicio-card"><i class="fa-solid fa-fire"></i><h3>Instalación de calentones eléctricos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Proyectos%20eléctricos" class="servicio-card"><i class="fa-solid fa-file-contract"></i><h3>Proyectos eléctricos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20en%20media%20y%20baja%20tensión" class="servicio-card"><i class="fa-solid fa-tower-broadcast"></i><h3>Instalación en media y baja tensión</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Eficiencia%20energética" class="servicio-card"><i class="fa-solid fa-leaf"></i><h3>Eficiencia energética</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20Estudios%20de%20corrección%20de%20factor%20de%20potencia" class="servicio-card"><i class="fa-solid fa-chart-line"></i><h3>Estudios de corrección de factor de potencia</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20Fabricación%20de%20bancos%20de%20capacitores" class="servicio-card"><i class="fa-solid fa-microchip"></i><h3>Fabricación de bancos de capacitores</h3></a>
+        </div>
+
+        <!-- Construcción -->
+        <div id="tab-construccion" class="tab-content">
+            <div class="construccion-intro"><p>Brindamos construcción eléctrica integral que incluye instalaciones, suministro de equipos y maniobras controladas.</p></div>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Cableados%20eléctricos" class="servicio-card"><i class="fa-solid fa-network-wired"></i><h3>Cableados eléctricos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Tendido%20de%20tuberías" class="servicio-card"><i class="fa-solid fa-toolbox"></i><h3>Tendido de tuberías</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Instalación%20de%20equipos" class="servicio-card"><i class="fa-solid fa-screwdriver-wrench"></i><h3>Instalación de equipos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20Suministro%20e%20instalación%20de%20banco%20de%20capacitores" class="servicio-card"><i class="fa-solid fa-solar-panel"></i><h3>Suministro e instalación de banco de capacitores</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Transformadores" class="servicio-card"><i class="fa-solid fa-bolt"></i><h3>Transformadores</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Interruptores%20UPS" class="servicio-card"><i class="fa-solid fa-shield-halved"></i><h3>Interruptores UPS</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Corte%20de%20energía%20controlado" class="servicio-card"><i class="fa-solid fa-power-off"></i><h3>Corte de energía controlado</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20servicio%20de%20Sistemas%20de%20medición" class="servicio-card"><i class="fa-solid fa-gauge"></i><h3>Sistemas de medición</h3></a>
+        </div>
+
+        <!-- Aires Acondicionados -->
+        <div id="tab-aires" class="tab-content">
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Venta%20e%20instalación%20de%20MiniSplit" class="servicio-card"><i class="fa-solid fa-snowflake"></i><h3>Venta e instalación de MiniSplit</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20Mantenimiento%20preventivo%20y%20correctivo" class="servicio-card"><i class="fa-solid fa-screwdriver-wrench"></i><h3>Mantenimiento preventivo y correctivo</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Carga%20de%20gas%20y%20reparación%20de%20fugas" class="servicio-card"><i class="fa-solid fa-temperature-arrow-down"></i><h3>Carga de gas y reparación de fugas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Revisión%20de%20tarjetas%20electrónicas%20y%20compresores" class="servicio-card"><i class="fa-solid fa-gears"></i><h3>Revisión de tarjetas electrónicas y compresores</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Reparación%20general%20de%20equipos" class="servicio-card"><i class="fa-solid fa-wrench"></i><h3>Reparación general de equipos</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20Diagnóstico%20especializado%20de%20fallas" class="servicio-card"><i class="fa-solid fa-stethoscope"></i><h3>Diagnóstico especializado de fallas</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Reubicación%20de%20equipos%20de%20aire%20acondicionado" class="servicio-card"><i class="fa-solid fa-arrows-up-down-left-right"></i><h3>Reubicación de equipos de aire acondicionado</h3></a>
+        </div>
+
+        <!-- Paneles Solares -->
+        <div id="tab-paneles" class="tab-content">
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20de%20paneles%20solares" class="servicio-card"><i class="fa-solid fa-solar-panel"></i><h3>Instalación de paneles solares</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20Estudio%20de%20consumo%20para%20reducción%20de%20recibo%20CFE" class="servicio-card"><i class="fa-solid fa-chart-line"></i><h3>Estudio de consumo para reducción de recibo CFE</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20el%20Mantenimiento%20y%20limpieza%20de%20sistemas%20fotovoltaicos" class="servicio-card"><i class="fa-solid fa-broom"></i><h3>Mantenimiento y limpieza de sistemas fotovoltaicos</h3></a>
+        </div>
+
+        <!-- Plomería -->
+        <div id="tab-plomeria" class="tab-content">
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Reparación%20de%20fugas%20de%20agua" class="servicio-card"><i class="fa-solid fa-faucet"></i><h3>Reparación de fugas de agua</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20de%20grifería%20y%20sanitarios" class="servicio-card"><i class="fa-solid fa-shower"></i><h3>Instalación de grifería y sanitarios</h3></a>
+            <a href="https://wa.me/526622724128?text=Hola,%20me%20interesa%20la%20Instalación%20de%20bombas%20de%20agua,%20tinacos%20e%20hidroneumáticos" class="servicio-card"><i class="fa-solid fa-water"></i><h3>Instalación de bombas de agua, tinacos e hidroneumáticos</h3></a>
+        </div>
+    </section>
+
+    <!-- Sección de Testimonios y Comentarios Nuevos -->
+    <section class="testimonios-section" id="testimonios">
+        <h2>Lo que opinan nuestros clientes</h2>
+        <div class="testimonios-grid" id="contenedorTestimonios">
+            <div class="testimonio-card">
+                <div class="avatar">JC</div>
+                <div class="testimonio-content">
+                    <div class="header-card-comentario">
+                        <span class="nombre-cliente">Juan C.</span>
+                        <span class="fecha-comentario">10/08/2026 - 14:30</span>
+                    </div>
+                    <div class="estrellas-card"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Excelente servicio, muy puntuales y profesionales con la instalación de mis equipos en Hermosillo. Totalmente recomendados."</p>
+                </div>
+            </div>
+            <div class="testimonio-card">
+                <div class="avatar">MR</div>
+                <div class="testimonio-content">
+                    <div class="header-card-comentario">
+                        <span class="nombre-cliente">María R.</span>
+                        <span class="fecha-comentario">11/08/2026 - 09:15</span>
+                    </div>
+                    <div class="estrellas-card"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Rápidos para solucionar fallas eléctricas y con una atención de primera. Sin duda volveré a contratarlos."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Califícanos -->
+    <section class="califica-section" id="califica">
+        <h2>Déjanos tu Comentario</h2>
+        <p>Tu opinión nos ayuda a mejorar día con día. ¡Califica nuestros servicios!</p>
+        
+        <form class="form-califica" id="formComentario" onsubmit="enviarComentario(event)">
+            <div class="input-group">
+                <label>Tu Nombre o Iniciales:</label>
+                <input type="text" id="nombreUsuario" placeholder="Ej. Roberto G." required>
+            </div>
+
+            <div class="input-group">
+                <label>Calificación:</label>
+                <div class="estrellas-input">
+                    <input type="radio" id="st5" name="estrellas" value="5" required><label for="st5" title="5 estrellas"><i class="fa-solid fa-star"></i></label>
+                    <input type="radio" id="st4" name="estrellas" value="4"><label for="st4" title="4 estrellas"><i class="fa-solid fa-star"></i></label>
+                    <input type="radio" id="st3" name="estrellas" value="3"><label for="st3" title="3 estrellas"><i class="fa-solid fa-star"></i></label>
+                    <input type="radio" id="st2" name="estrellas" value="2"><label for="st2" title="2 estrellas"><i class="fa-solid fa-star"></i></label>
+                    <input type="radio" id="st1" name="estrellas" value="1"><label for="st1" title="1 estrella"><i class="fa-solid fa-star"></i></label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Tu Comentario:</label>
+                <textarea id="comentarioUsuario" rows="4" placeholder="Cuéntanos cómo fue tu experiencia con el servicio..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-enviar-resena"><i class="fa-solid fa-paper-plane"></i> Enviar Comentario</button>
+        </form>
+    </section>
+
+    <footer><p>© 2026 LIZMARC. Hermosillo, Sonora.</p></footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            let contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
+            let buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function enviarComentario(e) {
+            e.preventDefault();
+            
+            // Obtener valores del formulario
+            let nombre = document.getElementById("nombreUsuario").value.trim();
+            let comentario = document.getElementById("comentarioUsuario").value.trim();
+            let estrellasVal = document.querySelector('input[name="estrellas"]:checked').value;
+            
+            // Obtener iniciales para el avatar
+            let iniciales = nombre.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2);
+            if(!iniciales) iniciales = "CL";
+
+            // Obtener la fecha y hora actual formateada
+            let ahora = new Date();
+            let dia = String(ahora.getDate()).padStart(2, '0');
+            let mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            let anio = ahora.getFullYear();
+            let horas = String(ahora.getHours()).padStart(2, '0');
+            let minutos = String(ahora.getMinutes()).padStart(2, '0');
+            let fechaHoraStr = `${dia}/${mes}/${anio} - ${horas}:${minutos}`;
+
+            // Generar las estrellas visuales
+            let estrellasHTML = "";
+            for(let i = 1; i <= 5; i++) {
+                if(i <= estrellasVal) {
+                    estrellasHTML += '<i class="fa-solid fa-star"></i>';
+                } else {
+                    estrellasHTML += '<i class="fa-regular fa-star" style="color: #ddd;"></i>';
+                }
+            }
+
+            // Crear la tarjeta de testimonio dinámicamente
+            let contenedor = document.getElementById("contenedorTestimonios");
+            let nuevaTarjeta = document.createElement("div");
+            nuevaTarjeta.className = "testimonio-card";
+            nuevaTarjeta.innerHTML = `
+                <div class="avatar">${iniciales}</div>
+                <div class="testimonio-content">
+                    <div class="header-card-comentario">
+                        <span class="nombre-cliente">${nombre}</span>
+                        <span class="fecha-comentario">${fechaHoraStr}</span>
+                    </div>
+                    <div class="estrellas-card">${estrellasHTML}</div>
+                    <p>"${comentario}"</p>
+                </div>
+            `;
+
+            // Agregar al principio de la lista para que se vea de inmediato
+            contenedor.prepend(nuevaTarjeta);
+
+            // Mensaje de éxito y limpiar formulario
+            alert("¡Gracias por tu comentario! Ya aparece publicado en la sección de testimonios.");
+            document.getElementById("formComentario").reset();
+
+            // Desplazar la pantalla automáticamente para ver el comentario publicado
+            document.getElementById("testimonios").scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
